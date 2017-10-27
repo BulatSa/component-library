@@ -1,0 +1,81 @@
+%grid {
+	flex-shrink: 1;
+	max-width: 100%;
+}
+
+.hidden{
+	display: none !important;
+}
+
+@for $i from 1 through 12 {
+	.grid-#{$i} {
+		@extend %grid;
+		width: 100% / 12 * $i;
+	}
+	.grid-off-#{$i} {
+		margin-left: 1 / 12 * $i * 100%;
+	}
+}
+
+@each $breakpoint,$value in $breakpoints {
+	@include res($breakpoint){
+		@for $i from 1 through 12 {
+			.grid-#{$i}_#{$breakpoint} {
+				width: 100% / 12 * $i;
+			}
+			.grid-off-#{$i}_#{$breakpoint} {
+				margin-left: 1 / 12 * $i * 100%;
+			}
+		}
+	}
+}
+
+.container{
+	margin: 0 auto;
+	width: 100%;
+	max-width: $container_width;
+	position: relative;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+.row{
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -$gutter;
+	margin-right: -$gutter;
+
+	[class^="grid"]{
+		padding-left: $gutter;
+		padding-right: $gutter;
+	}
+
+	&--center {
+		align-items: center;
+	}
+	&--middle {
+		justify-content: center;
+	}
+}
+
+.row-ng{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.clearfix{
+	&:before{
+		content: " ";
+		display: table;
+	}
+	&:after{
+		content: " ";
+		display: table;
+		clear: both;
+	}
+}
+
+.img-responsive{
+	width: 100%;
+	height: auto;
+}
